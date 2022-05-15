@@ -11,6 +11,11 @@ def scrapping(url):
                 if image["src"][-6-i:-1-i] == "https":
                     image["src"] = image["src"][-6-i:-1]+"f"
                     break
+        elif image["src"].endswith(".png"):
+            for i in range(len(image["src"])):
+                if image["src"][-6-i:-1-i] == "https":
+                    image["src"] = image["src"][-6-i:-1]+"g"
+                    break
         price = soup.find('span', {'class':'btn--breathing btn-group-end btn-third'})
         name = soup.find('h1', {'class':'t0'})
         if url[20:22] == "fr":
