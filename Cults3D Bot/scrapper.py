@@ -6,16 +6,10 @@ def scrapping(url):
     if r.status_code == 200:
         soup = BeautifulSoup(r.text, "html.parser") #get the soup parser
         image = soup.find('img', {'class':'painting-image'}) #get the image url
-        if image["src"].endswith(".gif"):
-            for i in range(len(image["src"])):
-                if image["src"][-6-i:-1-i] == "https":
-                    image["src"] = image["src"][-6-i:-1]+"f"
-                    break
-        elif image["src"].endswith(".png"):
-            for i in range(len(image["src"])):
-                if image["src"][-6-i:-1-i] == "https":
-                    image["src"] = image["src"][-6-i:-1]+"g"
-                    break
+        for i in range(len(image["src"])):
+            if image["src"][-6-i:-1-i] == "https":
+                image["src"] = image["src"][-6-i:-1]+image["src"][-1]
+                break
         price = soup.find('span', {'class':'btn--breathing btn-group-end btn-third'})
         name = soup.find('h1', {'class':'t0'})
         if url[20:22] == "fr":
@@ -34,3 +28,5 @@ def scrapping(url):
             "status" : "error",
             "code" : r.status_code
         }
+
+print(scrapping("https://cults3d.com/fr/mod%C3%A8le-3d/divers/speedloader-adaptor-small-for-aep"))
